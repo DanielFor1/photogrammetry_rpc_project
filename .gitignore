@@ -28,3 +28,11 @@ env/
 # System files
 .DS_Store
 Thumbs.db
+
+# ============== 模块05相关：老师提供的原始数据不上传 ==============
+modules/module_05_inverse_projection_grid/test_data/real_data_demo/raw_data/*
+!modules/module_05_inverse_projection_grid/test_data/real_data_demo/raw_data/.gitkeep
+
+# 通用：原始数据目录
+data/raw/*
+!data/raw/.gitkeep
