@@ -1,0 +1,52 @@
+
+  ##att parameter: 
+att_roll_fixed_error = 0.00000000 ;
+att_pitch_fixed_error = 0.00000000 ;
+att_yaw_fixed_error = 0.00000000 ;
+AttMode = 0 ;
+groupNumber = 3 ;
+attData_01 = 
+{
+    timeCode = 131862356.2500000000 ;
+    dateTime = "2013 03 07 04:25:56.250000" ;
+    eulor1 = 0.00000000 ;
+    eulor2 = 0.00000000 ;
+    eulor3 = -3.18281274 ;
+    roll_velocity = 0.00000000 ;
+    pitch_velocity = 0.00000000 ;
+    yaw_velocity = 0.00000000 ;
+    q1 = 0.00362572 ;
+    q2 = 0.87711718 ;
+    q3 = 0.10654644 ;
+    q4 = -0.46829495 ;
+}
+attData_02 = 
+{
+    timeCode = 131862356.5000000000 ;
+    dateTime = "2013 03 07 04:25:56.500000" ;
+    eulor1 = 0.00000000 ;
+    eulor2 = 0.00000000 ;
+    eulor3 = -3.18225412 ;
+    roll_velocity = 0.00000000 ;
+    pitch_velocity = 0.00000000 ;
+    yaw_velocity = 0.00000000 ;
+    q1 = 0.00364081 ;
+    q2 = 0.87718101 ;
+    q3 = 0.10653711 ;
+    q4 = -0.46817738 ;
+}
+attData_03 = 
+{
+    timeCode = 131862356.7500000000 ;
+    dateTime = "2013 03 07 04:25:56.750000" ;
+    eulor1 = 0.00000000 ;
+    eulor2 = 0.00000000 ;
+    eulor3 = -3.18169527 ;
+    roll_velocity = 0.00000000 ;
+    pitch_velocity = 0.00000000 ;
+    yaw_velocity = 0.00000000 ;
+    q1 = 0.00365591 ;
+    q2 = 0.87724483 ;
+    q3 = 0.10652778 ;
+    q4 = -0.46805980 ;
+}
