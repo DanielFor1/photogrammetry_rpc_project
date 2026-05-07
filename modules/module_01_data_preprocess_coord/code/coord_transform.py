@@ -6,6 +6,9 @@ coord_transform.py
 
 import re
 import numpy as np
+import os
+import pandas as pd
+from data_preprocess import timecode_to_datetime_str
 
 def Rx(theta):
     """
@@ -77,17 +80,21 @@ def datetime_to_jd(datetime_str):
     JD = int(365.25 * (y + 4716)) + int(30.6001 * (mo + 1)) + d + frac_day + B - 1524.5
     return JD
 
-def j2000_to_ecef(position_j2000, imaging_datetime_str):
+def j2000_to_ecef(position_j2000, imaging_time):
     """
     将 J2000 坐标转换为地心地固坐标。
 
     参数：
         position_j2000: J2000 坐标向量 [x_j2000, y_j2000, z_j2000]
-        imaging_datetime_str: 成像时刻的 UTC 时间字符串
+        imaging_time: 成像时刻
 
     返回：
         position_ecef: 地心地固坐标向量 [x_ecef, y_ecef, z_ecef]
     """
+
+    reference_timecode = 131862356.0000000000
+    reference_datetime_str = "2013 03 07 04:25:56.000000"
+    imaging_datetime_str = timecode_to_datetime_str(imaging_time, reference_timecode, reference_datetime_str)
 
     # 将 UTC 时间字符串转换为儒略日
     JD = datetime_to_jd(imaging_datetime_str)
@@ -137,4 +144,23 @@ def j2000_to_ecef(position_j2000, imaging_datetime_str):
 
 if __name__ == "__main__":
     print("模块 01：coord_transform.py 单独测试入口")
-    
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    test_input_dir = os.path.join(base_dir, '..', 'test_data', 'output_sample')
+    test_output_dir = os.path.join(base_dir, '..', 'test_data', 'output_sample')
+    os.makedirs(test_output_dir, exist_ok=True)
+
+    df = pd.read_csv(os.path.join(test_input_dir, "preprocessed_orbit_sample.csv"))
+    imaging_time = df['time'].values
+    position_j2000 = df[['X', 'Y', 'Z']].values
+    ecef_list = []
+    for pos, t in zip(position_j2000, imaging_time):
+        position_ecef = j2000_to_ecef(pos, t)
+        ecef_list.append(position_ecef)
+    position_ecef = np.array(ecef_list)
+    x_ecef = position_ecef[:, 0]
+    y_ecef = position_ecef[:, 1]
+    z_ecef = position_ecef[:, 2]
+    ecef_result_matrix = np.column_stack((imaging_time, x_ecef, y_ecef, z_ecef))
+    ecef_header = "time,x_ecef,y_ecef,z_ecef"
+    np.savetxt(os.path.join(test_output_dir, "ecef_result_sample.csv"), ecef_result_matrix, header=ecef_header, delimiter=",", comments="", fmt="%s")
+    print("模块 01：coord_transform.py 单独测试完成，ECEF 坐标转换结果已保存到 output_sample 目录")
